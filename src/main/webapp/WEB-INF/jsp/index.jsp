@@ -1,0 +1,228 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
+<html>
+<head>
+    <title>问卷星自动刷题系统</title>
+    <!-- 标签页图标 -->
+    <link rel="icon" href="https://java------------ai.oss-cn-beijing.aliyuncs.com/2025/12/1.jpg" type="image/jpg">
+    <!-- 引入Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* 自定义样式 */
+        body {
+            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+        
+        .card-container {
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            background-image: url('https://java------------ai.oss-cn-beijing.aliyuncs.com/2025/12/1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .card-header {
+            background: transparent;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2D3748;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(255, 255, 255, 0.5);
+        }
+        
+        .card-subtitle {
+            font-size: 13px;
+            opacity: 0.98;
+            color: #2D3748;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+        
+        .card-body {
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #2D3748;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 10px 14px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        
+        .form-control:focus {
+            border-color: #42a5f5;
+            box-shadow: 0 0 0 0.2rem rgba(66, 165, 245, 0.25);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: rgba(66, 165, 245, 0.9);
+            border: none;
+            border-radius: 6px;
+            padding: 11px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: rgba(33, 150, 243, 0.95);
+            box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 6px rgba(66, 165, 245, 0.4);
+        }
+
+        
+        /* 免责声明样式 */
+        .disclaimer {
+            margin-top: 25px; /* 增加上边距，使文字整体往下走 */
+            padding: 8px 12px;
+            background-color: transparent; /* 移除白色背景 */
+            border-radius: 4px;
+            border-left: 3px solid rgba(66, 165, 245, 0.8);
+        }
+        
+        .disclaimer-text {
+            font-size: 8px;
+            color: #2D3748;
+            line-height: 1.3;
+            margin: 0;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8); /* 增加文字阴影，确保在透明背景上清晰可见 */
+        }
+        
+        /* 加载动画 */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 576px) {
+            .card-container {
+                margin: 20px;
+            }
+            
+            .card-body {
+                padding: 20px;
+            }
+            
+            .card-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <!-- 卡片头部 -->
+        <div class="card-header">
+            <div class="card-title">大佬刷问卷星系统</div>
+            <div class="card-subtitle">大佬都爱用的系统！</div>
+        </div>
+        
+        <!-- 卡片内容 -->
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <label for="wjxUrl" class="form-label">问卷星链接</label>
+                    <input type="url" class="form-control" id="wjxUrl" placeholder="例：https://www.wjx.cn/vm/xxxxxx.aspx" required>
+                </div>
+
+                <button type="button" class="btn btn-primary" id="analyzeBtn">
+                    <i class="fa fa-search" aria-hidden="true"></i> 开始解析
+                </button>
+            </form>
+            
+            <!-- 免责声明 -->
+            <div class="disclaimer">
+                <p class="disclaimer-text">本工具仅用于技术研究和学习，不得用于任何非法用途或商业活动。使用本工具产生的一切后果由使用者自行承担，与开发者无关。</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 引入Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 引入自定义JS -->
+    <script src="${pageContext.request.contextPath}/static/js/alert.js"></script>
+    <!-- 引入请求工具 -->
+    <script src="${pageContext.request.contextPath}/static/js/request.js"></script>
+
+    <script>
+        // 获取开始解析按钮和URL输入框
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const urlInput = document.getElementById('wjxUrl');
+
+        // 为按钮添加点击事件
+        analyzeBtn.addEventListener('click', function() {
+            const url = urlInput.value.trim();
+
+            // 检查URL是否以https://v.wjx.cn开头
+            if (!url.startsWith('https://v.wjx.cn')) {
+                // 调用不阻塞提示
+                showAlert('给我喂的什么链接，是不是给错了', 'error');
+                return;
+            }
+
+            // 清除输入框内容
+            urlInput.value = '';
+
+            // 直接跳转到analysis.jsp页面并传递问卷星URL
+            const encodedUrl = encodeURIComponent(url);
+            window.location.href = '${pageContext.request.contextPath}/analysis?url=' + encodedUrl;
+        });
+    </script>
+</body>
+</html>
